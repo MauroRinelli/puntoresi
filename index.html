@@ -76,7 +76,7 @@ async function shareReceiptWhatsApp(){
  let p=state.parcels.find(x=>x.id===currentId);if(!p){toast('Ricevuta non disponibile');return}
  let name='ricevuta-'+String(p.receiptNo).replace(/[^a-z0-9_-]/gi,'-')+'.pdf',blob=receiptPdf(p),file=new File([blob],name,{type:'application/pdf'});
  try{
-  if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){await navigator.share({title:'Ricevuta presa in carico n. '+p.receiptNo,text:'Ricevuta '+(state.company.name||'Punto Pacchi')+ per '+p.recipient+' – telefono '+p.phone,files:[file]});return}
+  if(navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){await navigator.share({title:'Ricevuta presa in carico n. '+p.receiptNo,text:'Ricevuta '+(state.company.name||'Punto Pacchi')+' per '+p.recipient+' – telefono '+p.phone,files:[file]});return}
   downloadReceipt(blob,name);toast('Ricevuta PDF salvata: allegala su WhatsApp')
  }catch(err){if(err?.name!=='AbortError'){downloadReceipt(blob,name);toast('Ricevuta PDF salvata: allegala su WhatsApp')}}
 }
